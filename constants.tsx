@@ -16,7 +16,7 @@ export const SCORING_DATA: ScoringItem[] = [
   { id: 'b-7', name: '無字花大平胡', nameEn: 'Grand All Chows', fan: 15, description: '沒有番子、沒有花、且是平胡', descriptionEn: 'No honor/flowers + All Chows', category: ScoringCategory.BASIC },
   { id: 'b-9', name: '莊家', nameEn: 'Dealer', fan: 1, description: '做莊胡牌額外加番', descriptionEn: 'Bonus fan for winning as the dealer', category: ScoringCategory.BASIC },
   { id: 'b-10', name: '連莊', nameEn: 'Consecutive Dealer', fan: '(Nx2)+1', description: '連莊拉莊額外加番', descriptionEn: 'Bonus fan for consecutive wins as dealer', category: ScoringCategory.BASIC },
-  { id: 'b-14', name: '叮', nameEn: 'Ready Hand', fan: 5, description: '報聽牌', descriptionEn: 'Declare Ready Hand', category: ScoringCategory.BASIC },
+  { id: 'b-14', name: '叮', nameEn: 'Richii', fan: 5, description: '報聽牌', descriptionEn: 'Declare Ready Hand', category: ScoringCategory.BASIC },
 
   // 2. 字 / 🌸 花 / 🎋 槓 (Reorganized Order)
   { id: 'f-4', name: '無花', nameEn: 'No Flowers', fan: 1, description: '沒有花牌', descriptionEn: 'Hand contains no flower tiles', category: ScoringCategory.WORDS_FLOWER_KONG },
