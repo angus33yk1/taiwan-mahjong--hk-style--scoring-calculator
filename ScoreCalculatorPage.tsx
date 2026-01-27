@@ -35,6 +35,8 @@ const ScoreCalculatorPage: React.FC = () => {
     // Special Events
     const [selectedEvents, setSelectedEvents] = useState<string[]>([]);
 
+    const [showFlowerModal, setShowFlowerModal] = useState(false);
+
     const [scoringResult, setScoringResult] = useState<{
         totalFan: number;
         breakdown: ScoringBreakdown[];
@@ -160,7 +162,14 @@ const ScoreCalculatorPage: React.FC = () => {
         setSelectedEvents(newEvents);
     };
 
-    const calculateScore = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const calculateScore = (flowerOverride?: 'e-14' | 'e-15' | 'e-16') => {
+        // Check for 8 flowers special handling
+        if (flowers.length === 8 && !flowerOverride) {
+            setShowFlowerModal(true);
+            return;
+        }
+
         if (winnerIndex === null) {
             alert(language === 'zh' ? '請點擊手牌中的一張作為糊牌!' : 'Please select a winning tile from your hand!');
             return;
@@ -210,9 +219,10 @@ const ScoreCalculatorPage: React.FC = () => {
             tripleWin: selectedEvents.includes('e-5'),
             isFullBeggar: selectedEvents.includes('e-9'),
             isSemiBeggar: selectedEvents.includes('e-8'),
-            eightImmortals: selectedEvents.includes('e-14'),
-            oneRobsSeven: selectedEvents.includes('e-15'),
-            sevenRobsOne: selectedEvents.includes('e-16')
+            eightImmortals: flowerOverride === 'e-14',
+            oneRobsSeven: flowerOverride === 'e-15',
+            sevenRobsOne: flowerOverride === 'e-16',
+            isConcealedParam: isConcealed
         };
 
         try {
@@ -251,8 +261,8 @@ const ScoreCalculatorPage: React.FC = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-4 transition-all duration-300" style={{ transform: 'scale(0.9)', transformOrigin: 'top center' }}>
-            <div className="space-y-6">
+        <div className="w-full max-w-5xl mx-auto px-2 py-4 transition-all duration-300">
+            <div className="space-y-4">
                 {/* Instructions */}
                 <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-6 rounded-2xl shadow-xl">
                     <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
@@ -273,10 +283,10 @@ const ScoreCalculatorPage: React.FC = () => {
                         </h3>
                     </div>
 
-                    {/* Status/Hand Type Controls */}
-                    <div className="flex flex-wrap items-center gap-4 mt-4">
+                    {/* Status/Hand Type Controls - Mobile Optimized */}
+                    <div className="flex flex-wrap items-center gap-2 mt-4">
                         {/* 叮 */}
-                        <label className="flex items-center gap-2 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isListening}
@@ -292,7 +302,7 @@ const ScoreCalculatorPage: React.FC = () => {
                         </label>
 
                         {/* 叮(一發) */}
-                        <label className="flex items-center gap-2 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isListeningOneShot}
@@ -308,7 +318,7 @@ const ScoreCalculatorPage: React.FC = () => {
                         </label>
 
                         {/* 自摸 */}
-                        <label className="flex items-center gap-2 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isSelfDraw}
@@ -321,7 +331,7 @@ const ScoreCalculatorPage: React.FC = () => {
                         </label>
 
                         {/* 門清 */}
-                        <label className="flex items-center gap-2 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isConcealed}
@@ -334,7 +344,7 @@ const ScoreCalculatorPage: React.FC = () => {
                         </label>
 
                         {/* 莊家 */}
-                        <label className="flex items-center gap-2 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isDealer}
@@ -350,7 +360,7 @@ const ScoreCalculatorPage: React.FC = () => {
 
                         <button
                             onClick={clearAll}
-                            className="px-4 py-2 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-semibold hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors shadow-sm ml-auto"
+                            className="px-3 py-1.5 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-semibold hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors shadow-sm ml-auto text-sm"
                         >
                             🗑️ {language === 'zh' ? '清空' : 'Clear'}
                         </button>
@@ -440,7 +450,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                         <button
                                             onClick={() => addTile(tile)}
                                             disabled={handTiles.length >= 17}
-                                            className={`bg-slate-100 dark:bg-slate-800 border-2 rounded-lg px-4 py-3 font-bold text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                 }`}
                                         >
                                             {tile.displayChar}
@@ -573,8 +583,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                     { ids: ['e-2', 'e-3'], title: '槓相關', kongRequired: true },
                                     { ids: ['e-4', 'e-5'], title: '雙三響' },
                                     { ids: ['e-9', 'e-8'], title: '全半求人' },
-                                    { ids: ['e-7', 'e-6'], title: '剩餘牌數' },
-                                    { ids: ['e-14', 'e-15', 'e-16'], title: '花胡' }
+                                    { ids: ['e-7', 'e-6'], title: '剩餘牌數' }
                                 ];
 
                                 return (
@@ -659,7 +668,7 @@ const ScoreCalculatorPage: React.FC = () => {
 
                 {/* Calculate Button */}
                 <button
-                    onClick={calculateScore}
+                    onClick={() => calculateScore()}
                     disabled={handTiles.length !== 17 || winnerIndex === null}
                     className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
@@ -694,6 +703,47 @@ const ScoreCalculatorPage: React.FC = () => {
                     </div>
                 )}
             </div>
+            {/* Modal for 8 Flowers Selection */}
+            {showFlowerModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl p-6 max-w-sm w-full border border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in duration-200">
+                        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 text-center">
+                            🌺 {language === 'zh' ? '花胡選擇' : 'Flower Win Type'}
+                        </h3>
+                        <div className="space-y-3">
+                            <button
+                                onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
+                                className="w-full p-4 bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/40 hover:scale-[1.02] transition-all"
+                            >
+                                <div className="font-bold text-rose-700 dark:text-rose-300 text-lg">{language === 'zh' ? '八仙過海' : 'Eight Immortals'}</div>
+                                <div className="text-sm text-rose-500 dark:text-rose-400 font-bold">100 {language === 'zh' ? '番' : 'Fan'}</div>
+                            </button>
+                            <div className="grid grid-cols-2 gap-3">
+                                <button
+                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-15'); }}
+                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-400 transition-all font-semibold text-slate-700 dark:text-slate-300"
+                                >
+                                    {language === 'zh' ? '一搶七' : 'One Robs Seven'}
+                                    <div className="text-xs text-indigo-500 mt-1">30 {language === 'zh' ? '番' : 'Fan'}</div>
+                                </button>
+                                <button
+                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-16'); }}
+                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-400 transition-all font-semibold text-slate-700 dark:text-slate-300"
+                                >
+                                    {language === 'zh' ? '七搶一' : 'Seven Robs One'}
+                                    <div className="text-xs text-indigo-500 mt-1">30 {language === 'zh' ? '番' : 'Fan'}</div>
+                                </button>
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => setShowFlowerModal(false)}
+                            className="mt-6 w-full py-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors font-medium"
+                        >
+                            {language === 'zh' ? '取消' : 'Cancel'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

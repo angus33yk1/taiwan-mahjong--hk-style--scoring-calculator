@@ -68,6 +68,7 @@ export interface GameState {
   eightImmortals?: boolean;    // 八仙過海
   sevenRobsOne?: boolean;      // 七搶一
   oneRobsSeven?: boolean;      // 一搶七
+  isConcealedParam?: boolean;  // UI手動指定的門清狀態
 }
 
 export interface FanResult {
@@ -210,7 +211,10 @@ function step2_calculateStatusFans(state: GameState): FanResult[] {
   }
 
   // 門清 & 自摸
-  const isConcealed = state.exposedMelds.length === 0; // 無上/碰 (暗槓不影響)
+  // 邏輯: 必須沒有明牌(exposedMelds=0) 且 UI上傳來的 isConcealedParam 也為 true (或未定義默認true)
+  // 如果 UI checkbox "門清" 被取消，即使沒有 exposedMelds 也視為非門清 (模擬手動輸入了明牌在手牌中)
+  const logicalConcealed = state.exposedMelds.length === 0;
+  const isConcealed = logicalConcealed && (state.isConcealedParam !== false);
 
   if (isConcealed && state.selfDraw) {
     fans.push({ name: '門清自摸', fan: 5, description: '門清且自摸' });
