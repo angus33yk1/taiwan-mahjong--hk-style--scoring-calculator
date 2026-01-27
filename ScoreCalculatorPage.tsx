@@ -420,13 +420,13 @@ const ScoreCalculatorPage: React.FC = () => {
                                 <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                     {category.category}
                                 </h4>
-                                <div className="grid grid-cols-9 gap-1 sm:gap-1.5 max-w-sm sm:max-w-xs md:max-w-[280px]">
+                                <div className="grid grid-cols-9 gap-1 max-w-sm sm:max-w-xs md:max-w-[180px]">
                                     {category.tiles.map((tile, index) => (
                                         <div key={index} className="relative group">
                                             <button
                                                 onClick={() => addTile(tile)}
                                                 disabled={handTiles.length >= 17}
-                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-[10px] md:text-xs transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border rounded-md font-bold text-xs sm:text-[10px] md:text-[8px] transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                     }`}
                                             >
                                                 {tile.displayChar}
@@ -442,13 +442,13 @@ const ScoreCalculatorPage: React.FC = () => {
                             <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                 {language === 'zh' ? '🌪️ 風牌 & 🐉 三元牌' : '🌪️ Winds & 🐉 Dragons'}
                             </h4>
-                            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 max-w-sm sm:max-w-xs md:max-w-[280px]">
+                            <div className="grid grid-cols-9 gap-1 max-w-sm sm:max-w-xs md:max-w-[180px]">
                                 {honorTiles.map((tile, index) => (
                                     <div key={index} className="relative group">
                                         <button
                                             onClick={() => addTile(tile)}
                                             disabled={handTiles.length >= 17}
-                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-[10px] md:text-xs transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border rounded-md font-bold text-xs sm:text-[10px] md:text-[8px] transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                 }`}
                                         >
                                             {tile.displayChar}
