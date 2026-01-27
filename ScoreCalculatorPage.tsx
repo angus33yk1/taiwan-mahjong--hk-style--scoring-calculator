@@ -444,7 +444,7 @@ const ScoreCalculatorPage: React.FC = () => {
                             <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                 {language === 'zh' ? '🌪️ 風牌 & 🐉 三元牌' : '🌪️ Winds & 🐉 Dragons'}
                             </h4>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="grid grid-cols-9 gap-1 sm:gap-2">
                                 {honorTiles.map((tile, index) => (
                                     <div key={index} className="relative group">
                                         <button

@@ -123,9 +123,27 @@ export function calculateScore(state: GameState): ScoringResult {
   const specialHandResults = step4_checkSpecialHands(state);
 
   if (specialHandResults.length > 0) {
-    // 特殊牌型直接結算，但也需加上狀態番和事件番
+    // 特殊牌型直接結算
     // 取其中最高分的特殊牌型
     const bestSpecial = specialHandResults.reduce((prev, current) => prev.fan > current.fan ? prev : current);
+
+    // 🌺 花胡特殊處理：八仙過海、七搶一、一搶七 (不計底番/自摸/其他番)
+    const exclusiveFlowerWins = ['八仙過海', '七搶一', '一搶七'];
+    if (exclusiveFlowerWins.includes(bestSpecial.name)) {
+      return {
+        totalFan: bestSpecial.fan,
+        baseFan: 0, // 不計底番
+        chickenWin: false,
+        results: bestSpecial.fans,
+        patternResults: [{
+          pattern: { chows: [], pungs: [], pair: null, tiles: state.handTiles },
+          totalFan: bestSpecial.fan,
+          fans: bestSpecial.fans
+        }]
+      };
+    }
+
+    // 一般特殊牌型 (如十三么) 仍可疊加其他番 (如自摸)
     const allFans = [...statusFans, ...eventFans, ...bestSpecial.fans];
     const { fans: finalFans, isChickenWin } = step8_checkChickenWin(allFans);
 
