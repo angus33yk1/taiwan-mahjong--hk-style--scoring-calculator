@@ -284,9 +284,9 @@ const ScoreCalculatorPage: React.FC = () => {
                     </div>
 
                     {/* Status/Hand Type Controls - Mobile Optimized */}
-                    <div className="flex flex-wrap items-center gap-2 mt-4">
+                    <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                         {/* 叮 */}
-                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-1.5 sm:px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isListening}
@@ -294,15 +294,15 @@ const ScoreCalculatorPage: React.FC = () => {
                                     setIsListening(e.target.checked);
                                     if (e.target.checked) setIsListeningOneShot(false);
                                 }}
-                                className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <span className="font-bold text-slate-700 dark:text-slate-300 group-hover:text-amber-500 transition-colors">
+                            <span className="font-bold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 group-hover:text-amber-500 transition-colors">
                                 {language === 'zh' ? '叮' : 'Listen'}
                             </span>
                         </label>
 
                         {/* 叮(一發) */}
-                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-1.5 sm:px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isListeningOneShot}
@@ -310,65 +310,63 @@ const ScoreCalculatorPage: React.FC = () => {
                                     setIsListeningOneShot(e.target.checked);
                                     if (e.target.checked) setIsListening(false);
                                 }}
-                                className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <span className="font-bold text-slate-700 dark:text-slate-300 group-hover:text-amber-600 transition-colors">
+                            <span className="font-bold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 group-hover:text-amber-600 transition-colors">
                                 {language === 'zh' ? '叮(一發)' : 'One Shot'}
                             </span>
                         </label>
 
                         {/* 自摸 */}
-                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-1.5 sm:px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isSelfDraw}
                                 onChange={(e) => setIsSelfDraw(e.target.checked)}
-                                className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <span className="font-bold text-slate-700 dark:text-slate-300 group-hover:text-blue-500 transition-colors">
+                            <span className="font-bold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 group-hover:text-blue-500 transition-colors">
                                 {language === 'zh' ? '自摸' : 'Self-draw'}
                             </span>
                         </label>
 
                         {/* 門清 */}
-                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-1.5 sm:px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isConcealed}
                                 onChange={(e) => setIsConcealed(e.target.checked)}
-                                className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <span className="font-bold text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 transition-colors">
+                            <span className="font-bold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 group-hover:text-indigo-600 transition-colors">
                                 {language === 'zh' ? '門清' : 'Concealed'}
                             </span>
                         </label>
 
                         {/* 莊家 */}
-                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <label className="flex items-center gap-1 cursor-pointer group bg-slate-50 dark:bg-slate-800 px-1.5 sm:px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
                             <input
                                 type="checkbox"
                                 checked={isDealer}
                                 onChange={(e) => setIsDealer(e.target.checked)}
-                                className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <span className="font-bold text-slate-700 dark:text-slate-300 group-hover:text-red-500 transition-colors">
+                            <span className="font-bold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 group-hover:text-red-500 transition-colors">
                                 {language === 'zh' ? '莊家' : 'Dealer'}
                             </span>
                         </label>
 
-                        <div className="flex-grow"></div>
-
                         <button
                             onClick={clearAll}
-                            className="px-3 py-1.5 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-semibold hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors shadow-sm ml-auto text-sm"
+                            className="px-2 sm:px-3 py-1 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 font-bold hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors shadow-sm ml-auto text-[10px] sm:text-sm whitespace-nowrap"
                         >
                             🗑️ {language === 'zh' ? '清空' : 'Clear'}
                         </button>
                     </div>
 
-                    <div className="min-h-[100px] bg-slate-50 dark:bg-slate-800 rounded-xl p-4 flex flex-wrap gap-2 transition-all mt-4">
+                    <div className="min-h-[80px] bg-slate-50 dark:bg-slate-800 rounded-xl p-2 sm:p-4 grid grid-cols-9 gap-1 sm:gap-2 transition-all mt-4">
                         {handTiles.length === 0 ? (
-                            <div className="w-full text-center py-8 text-slate-400 dark:text-slate-500">
+                            <div className="col-span-9 text-center py-6 text-slate-400 dark:text-slate-500 text-sm">
                                 {language === 'zh' ? '點擊下方按鈕加入牌型 (共需17張)' : 'Click buttons below to add 17 tiles'}
                             </div>
                         ) : (
@@ -384,7 +382,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                                 removeTile(index);
                                             }
                                         }}
-                                        className={`relative bg-white dark:bg-slate-700 border-2 rounded-lg px-3 py-2 font-bold text-lg transition-all shadow-sm group
+                                        className={`relative w-full aspect-[3/4] flex items-center justify-center bg-white dark:bg-slate-700 border-2 rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm group
                                             ${isWinner
                                                 ? 'border-emerald-500 ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-slate-900 z-10 scale-105'
                                                 : handTiles.length === 17 && winnerIndex === null
@@ -394,7 +392,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                     >
                                         {tile.displayChar}
                                         {isWinner && (
-                                            <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold shadow-md">
+                                            <div className="absolute -top-1.5 -right-1.5 bg-emerald-500 text-white text-[8px] sm:text-[10px] px-1 sm:px-2 py-0.5 rounded-full font-bold shadow-md z-20">
                                                 胡
                                             </div>
                                         )}
@@ -422,13 +420,13 @@ const ScoreCalculatorPage: React.FC = () => {
                                 <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                     {category.category}
                                 </h4>
-                                <div className="grid grid-cols-9 gap-1 sm:gap-2">
+                                <div className="grid grid-cols-9 gap-1 sm:gap-2 max-w-sm sm:max-w-none">
                                     {category.tiles.map((tile, index) => (
                                         <div key={index} className="relative group">
                                             <button
                                                 onClick={() => addTile(tile)}
                                                 disabled={handTiles.length >= 17}
-                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                     }`}
                                             >
                                                 {tile.displayChar}
@@ -444,13 +442,13 @@ const ScoreCalculatorPage: React.FC = () => {
                             <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                 {language === 'zh' ? '🌪️ 風牌 & 🐉 三元牌' : '🌪️ Winds & 🐉 Dragons'}
                             </h4>
-                            <div className="grid grid-cols-9 gap-1 sm:gap-2">
+                            <div className="grid grid-cols-9 gap-1 sm:gap-2 max-w-sm sm:max-w-none">
                                 {honorTiles.map((tile, index) => (
                                     <div key={index} className="relative group">
                                         <button
                                             onClick={() => addTile(tile)}
                                             disabled={handTiles.length >= 17}
-                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                 }`}
                                         >
                                             {tile.displayChar}
@@ -589,7 +587,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                 return (
                                     <div className="space-y-3">
                                         {rows.map((row, rowIdx) => (
-                                            <div key={rowIdx} className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2 bg-slate-50/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
+                                            <div key={rowIdx} className={`grid ${rowIdx === 0 ? 'grid-cols-3' : 'grid-cols-2 md:grid-cols-3'} gap-2 p-2 bg-slate-50/50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800`}>
                                                 {row.ids.map(id => {
                                                     const event = specialEvents.find(e => e.id === id);
                                                     if (!event) return null;

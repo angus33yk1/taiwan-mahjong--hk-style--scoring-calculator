@@ -54,22 +54,24 @@ const App: React.FC = () => {
                     </div>
 
                     {/* Tab Navigation */}
-                    <nav className="flex gap-2 overflow-x-auto">
+                    <nav className="flex gap-1 sm:gap-2 overflow-x-auto no-scrollbar pb-1">
                         {tabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`
-                  flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all whitespace-nowrap
-                  ${activeTab === tab.id
+                                    flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-all whitespace-nowrap
+                                    ${activeTab === tab.id
                                         ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-900/50'
                                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                                     }
-                `}
+                                `}
                             >
-                                <span className="text-xl">{tab.icon}</span>
-                                <span className="font-bold">{tab.label}</span>
-                                <span className="text-xs opacity-70">{tab.labelEn}</span>
+                                <span className="text-lg sm:text-xl">{tab.icon}</span>
+                                <div className="flex flex-col items-start leading-tight">
+                                    <span className="font-bold text-xs sm:text-sm md:text-base">{tab.label}</span>
+                                    <span className="text-[10px] opacity-70 hidden sm:block">{tab.labelEn}</span>
+                                </div>
                             </button>
                         ))}
                     </nav>
