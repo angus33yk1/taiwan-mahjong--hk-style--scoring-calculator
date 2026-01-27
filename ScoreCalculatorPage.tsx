@@ -420,13 +420,13 @@ const ScoreCalculatorPage: React.FC = () => {
                                 <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                     {category.category}
                                 </h4>
-                                <div className="grid grid-cols-9 gap-1 sm:gap-2 max-w-sm sm:max-w-none">
+                                <div className="grid grid-cols-9 gap-1 sm:gap-1.5 max-w-sm sm:max-w-xs md:max-w-[280px]">
                                     {category.tiles.map((tile, index) => (
                                         <div key={index} className="relative group">
                                             <button
                                                 onClick={() => addTile(tile)}
                                                 disabled={handTiles.length >= 17}
-                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-[10px] md:text-xs transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                     }`}
                                             >
                                                 {tile.displayChar}
@@ -442,13 +442,13 @@ const ScoreCalculatorPage: React.FC = () => {
                             <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                 {language === 'zh' ? '🌪️ 風牌 & 🐉 三元牌' : '🌪️ Winds & 🐉 Dragons'}
                             </h4>
-                            <div className="grid grid-cols-9 gap-1 sm:gap-2 max-w-sm sm:max-w-none">
+                            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 max-w-sm sm:max-w-xs md:max-w-[280px]">
                                 {honorTiles.map((tile, index) => (
                                     <div key={index} className="relative group">
                                         <button
                                             onClick={() => addTile(tile)}
                                             disabled={handTiles.length >= 17}
-                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-xs sm:text-[10px] md:text-xs transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                 }`}
                                         >
                                             {tile.displayChar}
@@ -711,25 +711,28 @@ const ScoreCalculatorPage: React.FC = () => {
                         <div className="space-y-3">
                             <button
                                 onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
-                                className="w-full p-4 bg-rose-50 dark:bg-rose-900/20 border-2 border-rose-200 dark:border-rose-800 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/40 hover:scale-[1.02] transition-all"
+                                className="w-full p-4 bg-rose-50 dark:bg-rose-900/40 border-2 border-rose-500 dark:border-rose-400 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-all shadow-md ring-2 ring-rose-500/20"
                             >
-                                <div className="font-bold text-rose-700 dark:text-rose-300 text-lg">{language === 'zh' ? '八仙過海' : 'Eight Immortals'}</div>
-                                <div className="text-sm text-rose-500 dark:text-rose-400 font-bold">100 {language === 'zh' ? '番' : 'Fan'}</div>
+                                <div className="font-bold text-rose-700 dark:text-rose-200 text-lg flex items-center justify-center gap-2">
+                                    🌟 {language === 'zh' ? '八仙過海' : 'Eight Immortals'}
+                                </div>
+                                <div className="text-sm text-rose-600 dark:text-rose-300 font-bold mt-1">100 {language === 'zh' ? '番' : 'Fan'}</div>
+                                <div className="text-[10px] text-rose-400 dark:text-rose-500 mt-1 italic">{language === 'zh' ? '(推薦選項)' : '(Recommended)'}</div>
                             </button>
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-2 gap-3 opacity-60">
                                 <button
-                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-15'); }}
-                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-400 transition-all font-semibold text-slate-700 dark:text-slate-300"
+                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
+                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-rose-300 transition-all font-semibold text-slate-500 dark:text-slate-400 text-sm"
                                 >
                                     {language === 'zh' ? '一搶七' : 'One Robs Seven'}
-                                    <div className="text-xs text-indigo-500 mt-1">30 {language === 'zh' ? '番' : 'Fan'}</div>
+                                    <div className="text-[10px] mt-1 text-slate-400">→ 100 {language === 'zh' ? '番' : 'Fan'}</div>
                                 </button>
                                 <button
-                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-16'); }}
-                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-400 transition-all font-semibold text-slate-700 dark:text-slate-300"
+                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
+                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-rose-300 transition-all font-semibold text-slate-500 dark:text-slate-400 text-sm"
                                 >
                                     {language === 'zh' ? '七搶一' : 'Seven Robs One'}
-                                    <div className="text-xs text-indigo-500 mt-1">30 {language === 'zh' ? '番' : 'Fan'}</div>
+                                    <div className="text-[10px] mt-1 text-slate-400">→ 100 {language === 'zh' ? '番' : 'Fan'}</div>
                                 </button>
                             </div>
                         </div>
