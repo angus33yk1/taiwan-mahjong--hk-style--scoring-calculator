@@ -422,13 +422,13 @@ const ScoreCalculatorPage: React.FC = () => {
                                 <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                     {category.category}
                                 </h4>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="grid grid-cols-9 gap-1 sm:gap-2">
                                     {category.tiles.map((tile, index) => (
                                         <div key={index} className="relative group">
                                             <button
                                                 onClick={() => addTile(tile)}
                                                 disabled={handTiles.length >= 17}
-                                                className={`bg-slate-100 dark:bg-slate-800 border-2 rounded-lg px-4 py-3 font-bold text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                     }`}
                                             >
                                                 {tile.displayChar}
@@ -495,7 +495,7 @@ const ScoreCalculatorPage: React.FC = () => {
                             <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                 🎋 {language === 'zh' ? '槓子' : 'Kongs'} ({language === 'zh' ? '明槓+1, 暗槓+2' : 'Exposed +1, Concealed +2'})
                             </label>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-2">
                                 {(() => {
                                     // Calculate how many 4-of-a-kinds are in the hand
                                     const mapToEngineTile = (tile: Tile): EngineTile => {
@@ -515,29 +515,29 @@ const ScoreCalculatorPage: React.FC = () => {
 
                                     return (
                                         <>
-                                            <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl flex items-center justify-between border border-slate-100 dark:border-slate-700">
-                                                <span className="font-semibold text-slate-700 dark:text-slate-300">{language === 'zh' ? '明槓' : 'Exposed Kong'}</span>
-                                                <div className="flex items-center gap-3">
-                                                    <button onClick={() => setExposedKongs(Math.max(0, exposedKongs - 1))} className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">-</button>
-                                                    <span className="w-4 text-center font-bold text-indigo-600">{exposedKongs}</span>
+                                            <div className="bg-slate-50 dark:bg-slate-800 p-1.5 sm:p-2 rounded-xl flex items-center justify-between border border-slate-100 dark:border-slate-700 gap-1">
+                                                <span className="font-semibold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 truncate">{language === 'zh' ? '明槓' : 'Exp.'}</span>
+                                                <div className="flex items-center gap-1">
+                                                    <button onClick={() => setExposedKongs(Math.max(0, exposedKongs - 1))} className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">-</button>
+                                                    <span className="w-3 text-center font-bold text-indigo-600 text-xs">{exposedKongs}</span>
                                                     <button
                                                         onClick={() => canAddKong && setExposedKongs(exposedKongs + 1)}
                                                         disabled={!canAddKong}
-                                                        className={`w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold transition-colors ${!canAddKong ? 'opacity-30 cursor-not-allowed' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'}`}
+                                                        className={`w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold transition-colors ${!canAddKong ? 'opacity-30 cursor-not-allowed' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'}`}
                                                     >
                                                         +
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-xl flex items-center justify-between border border-slate-100 dark:border-slate-700">
-                                                <span className="font-semibold text-slate-700 dark:text-slate-300">{language === 'zh' ? '暗槓' : 'Concealed Kong'}</span>
-                                                <div className="flex items-center gap-3">
-                                                    <button onClick={() => setConcealedKongs(Math.max(0, concealedKongs - 1))} className="w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">-</button>
-                                                    <span className="w-4 text-center font-bold text-indigo-600">{concealedKongs}</span>
+                                            <div className="bg-slate-50 dark:bg-slate-800 p-1.5 sm:p-2 rounded-xl flex items-center justify-between border border-slate-100 dark:border-slate-700 gap-1">
+                                                <span className="font-semibold text-[10px] sm:text-xs md:text-sm text-slate-700 dark:text-slate-300 truncate">{language === 'zh' ? '暗槓' : 'Con.'}</span>
+                                                <div className="flex items-center gap-1">
+                                                    <button onClick={() => setConcealedKongs(Math.max(0, concealedKongs - 1))} className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors">-</button>
+                                                    <span className="w-3 text-center font-bold text-indigo-600 text-xs">{concealedKongs}</span>
                                                     <button
                                                         onClick={() => canAddKong && setConcealedKongs(concealedKongs + 1)}
                                                         disabled={!canAddKong}
-                                                        className={`w-8 h-8 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold transition-colors ${!canAddKong ? 'opacity-30 cursor-not-allowed' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'}`}
+                                                        className={`w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg shadow-sm font-bold transition-colors ${!canAddKong ? 'opacity-30 cursor-not-allowed' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'}`}
                                                     >
                                                         +
                                                     </button>

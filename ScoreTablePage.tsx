@@ -86,8 +86,8 @@ const ScoreTablePage: React.FC = () => {
                 <button
                     onClick={() => setSelectedCategory('all')}
                     className={`px-4 py-2 rounded-lg font-semibold transition-all ${selectedCategory === 'all'
-                            ? 'bg-indigo-600 text-white shadow-lg'
-                            : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750'
+                        ? 'bg-indigo-600 text-white shadow-lg'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750'
                         }`}
                 >
                     📋 {language === 'zh' ? '全部' : 'All'}
@@ -97,8 +97,8 @@ const ScoreTablePage: React.FC = () => {
                         key={category}
                         onClick={() => setSelectedCategory(category)}
                         className={`px-4 py-2 rounded-lg font-semibold transition-all ${selectedCategory === category
-                                ? 'bg-indigo-600 text-white shadow-lg'
-                                : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750'
+                            ? 'bg-indigo-600 text-white shadow-lg'
+                            : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750'
                             }`}
                     >
                         {language === 'zh' ? category : CATEGORY_TRANSLATIONS[category]}
@@ -145,11 +145,11 @@ const ScoringTable: React.FC<{ title: ScoringCategory; items: ScoringItem[] }> =
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                            <th className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider w-24 text-center">
+                            <th className="px-3 sm:px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider w-16 sm:w-20 text-center">
                                 {language === 'zh' ? '番數' : 'Fan'}<br />
                                 <span className="text-[10px] font-normal">{language === 'zh' ? 'Fan' : '番數'}</span>
                             </th>
-                            <th className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider min-w-[140px]">
+                            <th className="px-3 sm:px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider w-24 sm:w-32">
                                 {language === 'zh' ? '名稱' : 'Name'}<br />
                                 <span className="text-[10px] font-normal">{language === 'zh' ? 'Name' : '名稱'}</span>
                             </th>
@@ -162,18 +162,18 @@ const ScoringTable: React.FC<{ title: ScoringCategory; items: ScoringItem[] }> =
                     <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                         {items.map((item) => (
                             <tr key={item.id} className="hover:bg-indigo-50/30 dark:hover:bg-slate-800/40 transition-colors group">
-                                <td className="px-6 py-4">
-                                    <div className={`text-center font-bold text-lg ${Number(item.fan) >= 40 ? 'text-rose-600 dark:text-rose-500' : 'text-indigo-600 dark:text-indigo-400'
+                                <td className="px-3 sm:px-6 py-4">
+                                    <div className={`text-center font-bold text-base sm:text-lg ${Number(item.fan) >= 40 ? 'text-rose-600 dark:text-rose-500' : 'text-indigo-600 dark:text-indigo-400'
                                         }`}>
                                         {item.fan}
                                     </div>
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-3 sm:px-6 py-4">
                                     <div className="flex flex-col">
-                                        <span className="font-bold text-slate-800 dark:text-slate-200 text-base">
+                                        <span className="font-bold text-slate-800 dark:text-slate-200 text-sm sm:text-base">
                                             {language === 'zh' ? item.name : item.nameEn}
                                         </span>
-                                        <span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
+                                        <span className="text-slate-400 dark:text-slate-500 text-[10px] sm:text-xs font-medium">
                                             {language === 'zh' ? item.nameEn : item.name}
                                         </span>
                                     </div>
