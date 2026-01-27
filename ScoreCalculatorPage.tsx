@@ -364,7 +364,7 @@ const ScoreCalculatorPage: React.FC = () => {
                         </button>
                     </div>
 
-                    <div className="min-h-[80px] bg-slate-50 dark:bg-slate-800 rounded-xl p-0.5 sm:p-1 md:p-0 grid grid-cols-9 gap-1 transition-all mt-4 md:max-w-[220px]">
+                    <div className="bg-slate-50/50 dark:bg-slate-800/50 rounded-xl p-0 grid grid-cols-9 gap-1 transition-all mt-4 md:max-w-[300px] items-start">
                         {handTiles.length === 0 ? (
                             <div className="col-span-9 text-center py-6 text-slate-400 dark:text-slate-500 text-sm">
                                 {language === 'zh' ? '點擊下方按鈕加入牌型 (共需17張)' : 'Click buttons below to add 17 tiles'}
@@ -373,30 +373,31 @@ const ScoreCalculatorPage: React.FC = () => {
                             handTiles.map((tile, index) => {
                                 const isWinner = winnerIndex === index;
                                 return (
-                                    <button
-                                        key={index}
-                                        onClick={() => {
-                                            if (handTiles.length === 17) {
-                                                setWinnerIndex(isWinner ? null : index);
-                                            } else {
-                                                removeTile(index);
-                                            }
-                                        }}
-                                        className={`relative w-full aspect-[3/4] flex items-center justify-center bg-white dark:bg-slate-700 border rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm group
-                                            ${isWinner
-                                                ? 'border-emerald-500 ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-slate-900 z-10 scale-105'
-                                                : handTiles.length === 17 && winnerIndex === null
-                                                    ? 'border-emerald-300 animate-pulse hover:scale-110'
-                                                    : 'border-slate-300 dark:border-slate-600 hover:bg-red-50 dark:hover:bg-red-900/30 hover:border-red-400'}
-                                        `}
-                                    >
-                                        {tile.displayChar}
-                                        {isWinner && (
-                                            <div className="absolute -top-1.5 -right-1.5 bg-emerald-500 text-white text-[8px] sm:text-[10px] px-1 sm:px-2 py-0.5 rounded-full font-bold shadow-md z-20">
-                                                胡
-                                            </div>
-                                        )}
-                                    </button>
+                                    <div key={index} className="relative">
+                                        <button
+                                            onClick={() => {
+                                                if (handTiles.length === 17) {
+                                                    setWinnerIndex(isWinner ? null : index);
+                                                } else {
+                                                    removeTile(index);
+                                                }
+                                            }}
+                                            className={`relative w-full aspect-[3/4] flex items-center justify-center bg-white dark:bg-slate-700 border rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm group
+                                                ${isWinner
+                                                    ? 'border-emerald-500 ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-slate-900 z-10 scale-105'
+                                                    : handTiles.length === 17 && winnerIndex === null
+                                                        ? 'border-emerald-300 animate-pulse hover:scale-110'
+                                                        : 'border-slate-300 dark:border-slate-600 hover:bg-red-50 dark:hover:bg-red-900/30 hover:border-red-400'}
+                                            `}
+                                        >
+                                            {tile.displayChar}
+                                            {isWinner && (
+                                                <div className="absolute -top-1.5 -right-1.5 bg-emerald-500 text-white text-[8px] sm:text-[10px] px-1 sm:px-2 py-0.5 rounded-full font-bold shadow-md z-20">
+                                                    胡
+                                                </div>
+                                            )}
+                                        </button>
+                                    </div>
                                 );
                             })
                         )}
@@ -420,13 +421,13 @@ const ScoreCalculatorPage: React.FC = () => {
                                 <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                     {category.category}
                                 </h4>
-                                <div className="grid grid-cols-9 gap-1 md:max-w-[220px]">
+                                <div className="grid grid-cols-9 gap-1 md:max-w-[300px] items-start">
                                     {category.tiles.map((tile, index) => (
                                         <div key={index} className="relative group">
                                             <button
                                                 onClick={() => addTile(tile)}
                                                 disabled={handTiles.length >= 17}
-                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                     }`}
                                             >
                                                 {tile.displayChar}
@@ -442,13 +443,13 @@ const ScoreCalculatorPage: React.FC = () => {
                             <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-3">
                                 {language === 'zh' ? '🌪️ 風牌 & 🐉 三元牌' : '🌪️ Winds & 🐉 Dragons'}
                             </h4>
-                            <div className="grid grid-cols-9 gap-1 md:max-w-[220px]">
+                            <div className="grid grid-cols-9 gap-1 md:max-w-[300px] items-start">
                                 {honorTiles.map((tile, index) => (
                                     <div key={index} className="relative group">
                                         <button
                                             onClick={() => addTile(tile)}
                                             disabled={handTiles.length >= 17}
-                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border rounded-md font-bold text-xs sm:text-sm transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border rounded-md font-bold text-sm sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 ? 'border-slate-200 opacity-50 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                 }`}
                                         >
                                             {tile.displayChar}
@@ -708,33 +709,34 @@ const ScoreCalculatorPage: React.FC = () => {
                         <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 text-center">
                             🌺 {language === 'zh' ? '花胡選擇' : 'Flower Win Type'}
                         </h3>
-                        <div className="space-y-3">
+                        <div className="grid grid-cols-1 gap-3">
                             <button
                                 onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
-                                className="w-full p-4 bg-rose-50 dark:bg-rose-900/40 border-2 border-rose-500 dark:border-rose-400 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/60 transition-all shadow-md ring-2 ring-rose-500/20"
+                                className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-rose-400 transition-all group"
                             >
-                                <div className="font-bold text-rose-700 dark:text-rose-200 text-lg flex items-center justify-center gap-2">
-                                    🌟 {language === 'zh' ? '八仙過海' : 'Eight Immortals'}
+                                <div className="font-bold text-slate-700 dark:text-slate-200 text-lg group-hover:text-rose-600 transition-colors">
+                                    {language === 'zh' ? '八仙過海' : 'Eight Immortals'}
                                 </div>
-                                <div className="text-sm text-rose-600 dark:text-rose-300 font-bold mt-1">100 {language === 'zh' ? '番' : 'Fan'}</div>
-                                <div className="text-[10px] text-rose-400 dark:text-rose-500 mt-1 italic">{language === 'zh' ? '(推薦選項)' : '(Recommended)'}</div>
+                                <div className="text-sm text-rose-600 dark:text-rose-400 font-bold mt-1">100 {language === 'zh' ? '番' : 'Fan'}</div>
                             </button>
-                            <div className="grid grid-cols-2 gap-3 opacity-60">
-                                <button
-                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
-                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-rose-300 transition-all font-semibold text-slate-500 dark:text-slate-400 text-sm"
-                                >
+                            <button
+                                onClick={() => { setShowFlowerModal(false); calculateScore('e-15'); }}
+                                className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-400 transition-all group"
+                            >
+                                <div className="font-bold text-slate-700 dark:text-slate-200 text-lg group-hover:text-indigo-600 transition-colors">
                                     {language === 'zh' ? '一搶七' : 'One Robs Seven'}
-                                    <div className="text-[10px] mt-1 text-slate-400">→ 100 {language === 'zh' ? '番' : 'Fan'}</div>
-                                </button>
-                                <button
-                                    onClick={() => { setShowFlowerModal(false); calculateScore('e-14'); }}
-                                    className="p-3 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-rose-300 transition-all font-semibold text-slate-500 dark:text-slate-400 text-sm"
-                                >
+                                </div>
+                                <div className="text-sm text-indigo-600 dark:text-indigo-400 font-bold mt-1">30 {language === 'zh' ? '番' : 'Fan'}</div>
+                            </button>
+                            <button
+                                onClick={() => { setShowFlowerModal(false); calculateScore('e-16'); }}
+                                className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-400 transition-all group"
+                            >
+                                <div className="font-bold text-slate-700 dark:text-slate-200 text-lg group-hover:text-indigo-600 transition-colors">
                                     {language === 'zh' ? '七搶一' : 'Seven Robs One'}
-                                    <div className="text-[10px] mt-1 text-slate-400">→ 100 {language === 'zh' ? '番' : 'Fan'}</div>
-                                </button>
-                            </div>
+                                </div>
+                                <div className="text-sm text-indigo-600 dark:text-indigo-400 font-bold mt-1">30 {language === 'zh' ? '番' : 'Fan'}</div>
+                            </button>
                         </div>
                         <button
                             onClick={() => setShowFlowerModal(false)}
