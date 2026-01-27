@@ -65,6 +65,9 @@ export interface GameState {
   tripleWin?: boolean;         // 三響
   isFullBeggar?: boolean;      // 全求人
   isSemiBeggar?: boolean;      // 半求人
+  eightImmortals?: boolean;    // 八仙過海
+  sevenRobsOne?: boolean;      // 七搶一
+  oneRobsSeven?: boolean;      // 一搶七
 }
 
 export interface FanResult {
@@ -92,14 +95,19 @@ export function calculateScore(state: GameState): ScoringResult {
    * 1. 牌數驗證
    * 2. 狀態番 (叮, 自摸, 門清, 莊)
    * 3. 特殊事件番 (海底, 花上, 槓上)
-   * 4. 特殊牌型檢查 (十三么, 十六不搭, 嚦咕嚦咕, 8飛)
+   * 4. 特殊牌型檢查 (十三么, 十六不搭, 嚦咕嚦咕, 8飛, 八仙, 搶花)
    * 5. 標準牌型分析
    * 6. 組合番數計算
    * 7. 最高番組合選擇 (列出所有)
    * 8. 底番與雞胡檢查
    */
 
-  // ✅ 第 1 步：牌數驗證
+  // ✅ 第 1 步：牌數驗證 (如果是花胡，可跳過牌數檢查，或者需特殊處理。這裡假設花胡時手牌可能不完整或不重要，但通常狀態會傳入完整手牌。若為"八仙過海", 其實沒手牌也行。我們在 step4 處理)
+  // 如果是八仙過海/七搶一/一搶七，可以稍後直接返回，但 step1 驗證目前檢查 17張。
+  // 若是花胡特殊牌局，建議由前端傳入 dummy tiles 補足 17 張，或在此放寬。
+  // 由於這一步先執行，若我們確定是花胡，可以繞過還是讓它報錯？
+  // 假設前端會傳滿17張。
+
   if (!step1_validateTileCount(state)) {
     throw new Error('牌數驗證失敗');
   }
@@ -177,6 +185,10 @@ export function calculateScore(state: GameState): ScoringResult {
 // ============================================================================
 
 function step1_validateTileCount(state: GameState): boolean {
+  // 如果是花胡，不需檢查牌數
+  if (state.flowers.length === 8 || state.sevenRobsOne || state.oneRobsSeven || state.eightImmortals) {
+    return true;
+  }
   const handCount = state.handTiles.length;
   const exposedCount = state.exposedMelds.reduce((sum, meld) => sum + meld.tiles.length, 0);
   const winCount = 1; // 胡牌
@@ -261,6 +273,27 @@ function step3_calculateEventFans(state: GameState): FanResult[] {
 function step4_checkSpecialHands(state: GameState): { name: string; fan: number; fans: FanResult[] }[] {
   const results: { name: string; fan: number; fans: FanResult[] }[] = [];
   const allTiles = [...state.handTiles, state.winningTile];
+
+  // 0. 花胡 (八仙過海 / 七搶一 / 一搶七)
+  if (state.flowers.length === 8 || state.eightImmortals) {
+    results.push({
+      name: '八仙過海',
+      fan: 100,
+      fans: [{ name: '八仙過海', fan: 100, description: '摸齊8張花' }]
+    });
+  } else if (state.sevenRobsOne) {
+    results.push({
+      name: '七搶一',
+      fan: 30,
+      fans: [{ name: '七搶一', fan: 30, description: '7隻花搶對方1隻花' }]
+    });
+  } else if (state.oneRobsSeven) {
+    results.push({
+      name: '一搶七',
+      fan: 30,
+      fans: [{ name: '一搶七', fan: 30, description: '1隻花搶對方7隻花' }]
+    });
+  }
 
   // 1. 十三么
   if (isThirteenOrphans(allTiles)) {
@@ -561,11 +594,28 @@ function calculateOtherCombinationFans(state: GameState, pattern: HandPattern): 
     fans.push({ name: '缺一門', fan: 5, description: '缺一門' });
   }
 
-  // 五門齊
-  const hasWind = pattern.tiles.some(t => t.suit === 'zi' && t.wind);
-  const hasDragon = pattern.tiles.some(t => t.suit === 'zi' && t.dragon);
-  if (suits.size === 3 && hasWind && hasDragon) {
-    fans.push({ name: '五門齊', fan: 10, description: '萬筒索風三元都有' });
+  // 五門齊 / 七門齊
+  // 檢查是否擁有 萬、筒、索、風、三元
+  // 檢查條件：Pattern 中的組合是否包含這些類別
+  const hasWan = checkType(pattern, 'wan');
+  const hasTong = checkType(pattern, 'tong');
+  const hasSuo = checkType(pattern, 'suo');
+  // 風與三元需細分是否為刻子
+  const windStatus = checkWindDragonStatus(pattern, 'wind');
+  const dragonStatus = checkWindDragonStatus(pattern, 'dragon');
+
+  if (hasWan && hasTong && hasSuo && windStatus !== 'none' && dragonStatus !== 'none') {
+    const hasFlower = state.flowers.some(f => getFlowerNumber(f) <= 4); // 花 (1-4)
+    const hasSeason = state.flowers.some(f => getFlowerNumber(f) >= 5); // 季 (5-8)
+    const isBig = windStatus === 'all_pung' && dragonStatus === 'all_pung';
+
+    if (hasFlower && hasSeason) {
+      if (isBig) fans.push({ name: '大七門齊', fan: 20, description: '五門齊+花+季 (風/三元全刻)' });
+      else fans.push({ name: '小七門齊', fan: 15, description: '五門齊+花+季 (風/三元非全刻)' });
+    } else {
+      if (isBig) fans.push({ name: '大五門齊', fan: 10, description: '五門齊 (風/三元全刻)' });
+      else fans.push({ name: '小五門齊', fan: 5, description: '五門齊 (風/三元非全刻)' });
+    }
   }
 
   if (pattern.pungs.length === 5) {
@@ -578,6 +628,29 @@ function calculateOtherCombinationFans(state: GameState, pattern: HandPattern): 
   }
 
   return fans;
+}
+
+function checkType(pattern: HandPattern, suit: string): boolean {
+  return pattern.tiles.some(t => t.suit === suit);
+}
+
+function checkWindDragonStatus(pattern: HandPattern, type: 'wind' | 'dragon'): 'none' | 'has' | 'all_pung' {
+  const tiles = pattern.tiles.filter(t => t.suit === 'zi' && (type === 'wind' ? t.wind : t.dragon));
+  if (tiles.length === 0) return 'none';
+
+  // 檢查該類別的所有面子是否都是刻子/槓子
+  // 注意：Pattern 中的 pungs 包含 exposedKongs/ConcealedKongs/exposedPungs
+  // 但是 pattern.tiles 包含所有牌。我們需檢查屬於該類別的"組"
+  // 如果該類別有散牌 (即存在於 Pair 或 Chow? Zi不能組成Chow), 則不是 "Check if all are pungs"
+  // 嚴格定義："大"五門齊通常指番子部分必須是刻子。如果有番子做眼，則為小五門齊。
+
+  // 檢查是否有該類別的對子
+  const hasPair = pattern.pair && pattern.pair.tiles[0].suit === 'zi' && (type === 'wind' ? pattern.pair.tiles[0].wind : pattern.pair.tiles[0].dragon);
+  if (hasPair) return 'has'; // 有眼，不可能是全刻
+
+  // 確認是否有該類別的牌存在，且不在對子裡 -> 必須都在刻子裡 (因為字牌不能吃)
+  // 所以只要沒眼，且有牌，就一定是全刻
+  return 'all_pung';
 }
 
 function calculateDragonsAndWindsFans(pattern: HandPattern): FanResult[] {

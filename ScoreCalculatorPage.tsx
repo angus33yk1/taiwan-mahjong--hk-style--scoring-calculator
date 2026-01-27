@@ -46,6 +46,9 @@ const ScoreCalculatorPage: React.FC = () => {
     const newEvents = [
         { id: 'e-13', name: '海底撈月', nameEn: 'Last Tile Win', fan: 20, description: '最後一張牌自摸', descriptionEn: 'Self-draw on the very last tile', category: ScoringCategory.SPECIAL_EVENTS },
         { id: 'e-1', name: '花上食胡', nameEn: 'Win on Flower', fan: 1, description: '摸花時自摸', descriptionEn: 'Self-draw after drawing a flower', category: ScoringCategory.SPECIAL_EVENTS },
+        { id: 'e-14', name: '八仙過海', nameEn: 'Eight Immortals', fan: 100, description: '摸齊8張花', descriptionEn: 'Collect all 8 flower tiles', category: ScoringCategory.SPECIAL_EVENTS },
+        { id: 'e-15', name: '一搶七', nameEn: 'One Robs Seven', fan: 30, description: '1隻花搶對方7隻花', descriptionEn: 'Rob 7 flowers with 1', category: ScoringCategory.SPECIAL_EVENTS },
+        { id: 'e-16', name: '七搶一', nameEn: 'Seven Robs One', fan: 30, description: '7隻花搶對方1隻花', descriptionEn: 'Rob 1 flower with 7', category: ScoringCategory.SPECIAL_EVENTS },
     ];
     newEvents.forEach(newEvent => {
         if (!specialEvents.some(event => event.id === newEvent.id)) {
@@ -144,6 +147,7 @@ const ScoreCalculatorPage: React.FC = () => {
                 ['e-4', 'e-5'],           // 雙、三響 (2選1)
                 ['e-8', 'e-9'],           // 半、全求人 (2選1)
                 ['e-2', 'e-3'],           // 槓上、搶槓 (2選1)
+                ['e-14', 'e-15', 'e-16'], // 花胡 (3選1)
             ];
 
             for (const group of groups) {
@@ -205,7 +209,10 @@ const ScoreCalculatorPage: React.FC = () => {
             doubleWin: selectedEvents.includes('e-4'),
             tripleWin: selectedEvents.includes('e-5'),
             isFullBeggar: selectedEvents.includes('e-9'),
-            isSemiBeggar: selectedEvents.includes('e-8')
+            isSemiBeggar: selectedEvents.includes('e-8'),
+            eightImmortals: selectedEvents.includes('e-14'),
+            oneRobsSeven: selectedEvents.includes('e-15'),
+            sevenRobsOne: selectedEvents.includes('e-16')
         };
 
         try {
@@ -566,7 +573,8 @@ const ScoreCalculatorPage: React.FC = () => {
                                     { ids: ['e-2', 'e-3'], title: '槓相關', kongRequired: true },
                                     { ids: ['e-4', 'e-5'], title: '雙三響' },
                                     { ids: ['e-9', 'e-8'], title: '全半求人' },
-                                    { ids: ['e-7', 'e-6'], title: '剩餘牌數' }
+                                    { ids: ['e-7', 'e-6'], title: '剩餘牌數' },
+                                    { ids: ['e-14', 'e-15', 'e-16'], title: '花胡' }
                                 ];
 
                                 return (
