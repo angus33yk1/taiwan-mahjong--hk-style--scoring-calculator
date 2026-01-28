@@ -297,7 +297,7 @@ function step4_checkSpecialHands(state: GameState): { name: string; fan: number;
   const allTiles = [...state.handTiles, state.winningTile];
 
   // 0. 花胡 (八仙過海 / 七搶一 / 一搶七)
-  if (state.flowers.length === 8 || state.eightImmortals) {
+  if (state.eightImmortals) {
     results.push({
       name: '八仙過海',
       fan: 100,
@@ -314,6 +314,12 @@ function step4_checkSpecialHands(state: GameState): { name: string; fan: number;
       name: '一搶七',
       fan: 30,
       fans: [{ name: '一搶七', fan: 30, description: '1隻花搶對方7隻花' }]
+    });
+  } else if (state.flowers.length === 8) {
+    results.push({
+      name: '八仙過海',
+      fan: 100,
+      fans: [{ name: '八仙過海', fan: 100, description: '摸齊8張花' }]
     });
   }
 
