@@ -387,7 +387,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                                     removeTile(index);
                                                 }
                                             }}
-                                            className={`relative w-full flex items-center justify-center bg-white dark:bg-slate-700 border-2 rounded-lg px-3 py-2 font-bold text-lg transition-all shadow-sm group
+                                            className={`relative w-full aspect-[3/4] flex items-center justify-center bg-white dark:bg-slate-700 border-2 rounded-lg font-bold text-base sm:text-lg transition-all shadow-sm group
                                                 ${isWinner
                                                     ? 'border-emerald-500 ring-2 ring-emerald-500 ring-offset-2 dark:ring-offset-slate-900 z-10 scale-105'
                                                     : handTiles.length === 17 && winnerIndex === null
@@ -432,7 +432,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                             <button
                                                 onClick={() => addTile(tile)}
                                                 disabled={handTiles.length >= 17 || handTiles.filter(t => t.suit === tile.suit && t.value === tile.value).length >= 4}
-                                                className={`w-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-lg px-3 py-2 font-bold text-lg transition-all shadow-sm ${handTiles.length >= 17 || handTiles.filter(t => t.suit === tile.suit && t.value === tile.value).length >= 4 ? 'border-slate-200 opacity-30 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                                className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-lg font-bold text-base sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 || handTiles.filter(t => t.suit === tile.suit && t.value === tile.value).length >= 4 ? 'border-slate-200 opacity-30 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                     }`}
                                             >
                                                 {tile.displayChar}
@@ -454,7 +454,7 @@ const ScoreCalculatorPage: React.FC = () => {
                                         <button
                                             onClick={() => addTile(tile)}
                                             disabled={handTiles.length >= 17 || handTiles.filter(t => t.suit === tile.suit && t.value === tile.value).length >= 4}
-                                            className={`w-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-lg px-3 py-2 font-bold text-lg transition-all shadow-sm ${handTiles.length >= 17 || handTiles.filter(t => t.suit === tile.suit && t.value === tile.value).length >= 4 ? 'border-slate-200 opacity-30 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
+                                            className={`w-full aspect-[3/4] flex items-center justify-center bg-slate-100 dark:bg-slate-800 border-2 rounded-lg font-bold text-base sm:text-lg transition-all shadow-sm ${handTiles.length >= 17 || handTiles.filter(t => t.suit === tile.suit && t.value === tile.value).length >= 4 ? 'border-slate-200 opacity-30 cursor-not-allowed' : 'border-slate-300 dark:border-slate-600 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:border-indigo-400 dark:hover:border-indigo-600'
                                                 }`}
                                         >
                                             {tile.displayChar}
